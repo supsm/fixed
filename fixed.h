@@ -262,6 +262,7 @@ namespace std
 	class numeric_limits<::supsm::fixed<T, scale_bits, fast_multdiv, multdiv_cast_type>>
 	{
 		using fixed_type = ::supsm::fixed<T, scale_bits, fast_multdiv, multdiv_cast_type>;
+		static constexpr double log10_2 = 0.301029995663981195; // std::log10 not constexpr until C++26
 	public:
 		static constexpr bool is_specialized = true;
 		static constexpr bool is_signed = numeric_limits<T>::is_signed;
@@ -275,12 +276,12 @@ namespace std
 		static constexpr bool is_bounded = true;
 		static constexpr bool is_modulo = numeric_limits<T>::is_modulo;
 		static constexpr bool digits = numeric_limits<T>::digits;
-		static constexpr int digits10 = digits * std::log10(2);
+		static constexpr int digits10 = digits * log10_2;
 		static constexpr int radix = 2;
 		static constexpr int min_exponent = scale_bits;
-		static constexpr int min_exponent10 = scale_bits * std::log10(2);
+		static constexpr int min_exponent10 = scale_bits * log10_2;
 		static constexpr int max_exponent = numeric_limits<T>::digits - scale_bits;
-		static constexpr int max_exponent10 = (numeric_limits<T>::digits - scale_bits) * std::log10(2);
+		static constexpr int max_exponent10 = (numeric_limits<T>::digits - scale_bits) * log10_2;
 		static constexpr int traps = numeric_limits<T>::traps;
 		static constexpr int tinyness_before = false;
 		static constexpr fixed_type min() { fixed_type m; m.raw_data = numeric_limits<T>::min(); return m; }
