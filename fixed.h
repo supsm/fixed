@@ -70,11 +70,11 @@ namespace supsm
 		}
 		constexpr explicit operator float() const
 		{
-			return float(raw_data) / (1 << scale_bits);
+			return float(raw_data) / (T(1) << scale_bits);
 		}
 		constexpr explicit operator double() const
 		{
-			return double(raw_data) / (1 << scale_bits);
+			return double(raw_data) / (T(1) << scale_bits);
 		}
 		
 		constexpr fixed operator+() const { fixed result; result.raw_data = +raw_data; return result; }
