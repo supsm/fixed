@@ -24,10 +24,12 @@ using fixed = supsm::fixed<uint32_t, 16>;
 int main()
 {
 	fixed f = 1; // create fixed point with value 1
-	fixed f2(1, 4); // 1/2^4 = 1/16
+	constexpr fixed f2(1, 4); // 1/2^4 = 1/16
+	constexpr fixed f3 = 13;
 	// cast to underlying integer type, truncating fractional part
 	// conversions must be explicit
-	uint32_t result = static_cast<uint32_t>(f / f2);
+	// all operations and conversions are constexpr
+	constexpr uint32_t result = static_cast<uint32_t>(f / f2);
 	supsm::fixed<int32_t, 16> neg(-5, 6); // -5/2^6. Negatives use two's complement following underlying type
 	f <<= 6; // bitshift acts as multiplication by 2^6
 	// divide f by 31 (fixed point), then convert to floating point
@@ -40,16 +42,16 @@ int main()
 - Functions other than the basic arithmetic, logic, and comparison operators (e.g. sqrt, log) are not provided and must be implemented by the user
   - Example sqrt implementation:
     ```c++
-    fixed sqrt(fixed x)
-	{
-	    fixed est = x, last_est;
-	    do
-	    {
-	        last_est = est;
-	        est += x / est;
-	        est >>= 1;
-	    }
-	    while (est != last_est);
-	    return est;
-	}
- 	```
+    constexpr fixed sqrt(fixed x)
+    {
+    	fixed est = x, last_est;
+    	do
+    	{
+    		last_est = est;
+    		est += x / est;
+    		est >>= 1;
+    	}
+    	while (est != last_est);
+    	return est;
+    }
+    ```
