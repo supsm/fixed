@@ -23,6 +23,7 @@ SOFTWARE.
 */
 
 #pragma once
+#include <compare>
 #include <concepts>
 #include <limits>
 #include <type_traits>
