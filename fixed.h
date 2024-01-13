@@ -67,6 +67,10 @@ namespace supsm
 		template<std::integral T2>
 		constexpr explicit operator T2() const
 		{
+			// NOTE:
+			// T2 may not fit raw_data, so we must
+			// cast after the shift. Shifting right
+			// should have no issues with T.
 			return T2(raw_data) >> scale_bits;
 		}
 		constexpr explicit operator float() const
